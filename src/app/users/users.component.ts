@@ -225,10 +225,8 @@ export class UsersComponent implements OnInit {
         data => {
           this.handleResponse(data);
           this.utilService.closeModal('addNewContact');
-        }
-        ,
+        },
         error => this.handleError(error)
-
       );
   }
 
