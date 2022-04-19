@@ -1,0 +1,212 @@
+	<!-- Sidebar wrapper start -->
+  <nav id="sidebar" class="sidebar-wrapper">
+
+    <!-- Sidebar brand start  -->
+    <div class="sidebar-brand">
+      <a href="index.html" class="logo">
+        <img src="assets/img/logo.png" alt="SmartQ Admin Dashboard" />
+      </a>
+      <h4 class="text text-info ml-3">{{estateName}}</h4>
+    </div>
+    <!-- Sidebar brand end  -->
+
+    <!-- Sidebar content start -->
+    <div class="sidebar-content">
+
+      <!-- sidebar menu start -->
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu">General</li>
+          <li class="active">
+            <a href="javascript:void(0)">
+              <i class="icon-devices_other"></i>
+              <span class="menu-text" (click)="dashboard(1, 'superadministrator_dashboard')" style="font-weight: bold;">Dashboard</span>
+              <span class="menu-text" *ngIf="menuPermission[1].comp == 'estate_admin_dashboard' && menuPermission[1].status == true"  (click)="dashboard(2, 'administrator_dashboard')"  style="font-weight: bold;">Dashboard</span>
+              <span class="menu-text" *ngIf="menuPermission[2].comp == 'resident_dashboard' && menuPermission[2].status == true"  (click)="dashboard(3, 'resident_dashboard')" style="font-weight: bold;">Dashboard</span>
+              <span class="menu-text"  *ngIf="menuPermission[3].comp == 'security_dashboard' && menuPermission[3].status == true"(click)="dashboard(4, 'security_dashboard')" style="font-weight: bold;">Dashboard</span>
+            </a>
+
+            <!-- <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a href="javascript:void(0)" style="font-weight: bold;" *ngIf="roleName == 'superadministrator'" (click)="dashboard(1, 'superadministrator_dashboard')" class="current-page">Super Admin</a>
+                </li>
+                  <li>
+                  <a href="javascript:void(0)" style="font-weight: bold;" *ngIf="roleName == 'administrator'"  (click)="dashboard(2, 'administrator_dashboard')" >Estate Admin</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" style="font-weight: bold;" *ngIf="roleName == 'resident'"  (click)="dashboard(3, 'resident_dashboard')" >Resident Dashboard</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" style="font-weight: bold;" *ngIf="roleName == 'security'" (click)="dashboard(4, 'security_dashboard')">Security Dashboard</a>
+                </li>
+              </ul>
+            </div> -->
+          </li>
+
+          <li *ngIf="menuPermission[4].comp == 'user_profile' && menuPermission[4].status == true">
+            <a [routerLink]="['/profile']" (click)="ngOnInit()">
+              <i class="icon-user1"></i>
+              <span class="menu-text" style="font-weight: bold;">Profile</span>
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/estate']" (click)="ngOnInit()">
+              <i class="icon-home"></i>
+              <span class="menu-text" style="font-weight: bold;">Estate</span>
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a href="javascript:void(0)">
+              <i class="icon-users"></i>
+              <span class="menu-text" style="font-weight: bold;">Users</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li >
+                  <a [routerLink]="['/users']">
+                    all Users</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/roles']">Role & Permission</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li *ngIf="menuPermission[5].comp == 'visits_pass' && menuPermission[5].status == true ">
+            <a [routerLink]="['/visitor_pass']">
+              <i class="icon-wb_incandescent"></i>
+              <span class="menu-text" style="font-weight: bold;">Visits</span>
+            </a>
+          </li>
+
+          <li class="sidebar-dropdown" [hidden]="menuPermission[17].comp == 'electricity' || menuPermission[17].status == true">
+            <a href="javascript:void(0)">
+              <i class="icon-wb_incandescent"></i>
+              <span class="menu-text" style="font-weight: bold;">Utilities</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li [hidden]="menuPermission[17].comp == 'electricity' || menuPermission[17].status == true">
+                  <a [routerLink]="['/electricity']">Electricity</a>
+                </li>
+                <li [hidden]="menuPermission[18].comp == 'water' || menuPermission[18].status == true">
+                  <a [routerLink]="['/water']">Water</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li *ngIf="menuPermission[9].comp == 'complaint' && menuPermission[9].status == true">
+            <a [routerLink]="['/complaint']">
+              <i class="icon-swap"></i>
+              <span class="menu-text" style="font-weight: bold;">Complaint</span>
+            </a>
+          </li>
+
+          <li *ngIf="menuPermission[10].comp == 'message' && menuPermission[10].status == true">
+            <a [routerLink]="['/message']">
+              <i class="icon-contact_mail"></i>
+              <span class="menu-text" style="font-weight: bold;">Message</span>
+            </a>
+          </li>
+
+          <li *ngIf="menuPermission[11].comp == 'estate' && menuPermission[11].status == true">
+            <a [routerLink]="['/ice']">
+              <i >
+                <img width="50%" src="assets/img/ice.jpeg">
+              </i>
+              <span class="menu-text" style="font-weight: bold;">ICE</span>
+            </a>
+          </li>
+
+          <li *ngIf="menuPermission[12].comp == 'residents' && menuPermission[12].status == true">
+            <a [routerLink]="['/residence']">
+              <i class="icon-users"></i>
+              <span class="menu-text" style="font-weight: bold;">Resident</span>
+            </a>
+          </li>
+
+          <li class="sidebar-dropdown" [hidden]="menuPermission[7].comp != 'billing' || menuPermission[7].status != true">
+            <a href="javascript:void(0)">
+              <i class="icon-credit-card"></i>
+              <span class="menu-text" style="font-weight: bold;">Billing</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li [hidden]="menuPermission[7].comp != 'billing' || menuPermission[7].status != true">
+                  <a [routerLink]="['/items']">Bill Items</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/invoice']">Invoice</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/payments']">Wallet</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+           <li *ngIf="menuPermission[0].comp == 'estate' && menuPermission[0].status == true ">
+            <a [routerLink]="['/report']">
+              <i class="icon-area-graph"></i>
+              <span class="menu-text" style="font-weight: bold;">Report</span>
+            </a>
+          </li>
+
+          <li class="header-menu" [hidden]="menuPermission[13].comp != 'settings' || menuPermission[13].status != true">Settings</li>
+          <li class="sidebar-dropdown" [hidden]="menuPermission[13].comp != 'settings' || menuPermission[13].status != true">
+            <a href="javascript:void(0)">
+              <i class="icon-users"></i>
+              <span class="menu-text" style="font-weight: bold;">Users</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li [hidden]="menuPermission[14].comp != 'all_users' || menuPermission[14].status != true">
+                  <a [routerLink]="['/users']">
+                  all Users</a>
+                </li>
+                <li [hidden]="menuPermission[15].comp != 'all_roles' || menuPermission[15].status != true">
+                  <a [routerLink]="['/roles']">Role & Permission</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+           <li class="sidebar-dropdown" [hidden]="menuPermission[13].comp != 'settings' || menuPermission[13].status != true">
+            <a href="javascript:void(0)">
+              <i class="icon-wb_incandescent"></i>
+              <span class="menu-text" style="font-weight: bold;">Settings</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li [hidden]="menuPermission[16].comp != 'streets' || menuPermission[16].status != true">
+                  <a [routerLink]="['/road_settings']">Street</a>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <a [routerLink]="['/complaint_categories']">Complaint Category</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/settings']">System Settings</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+      <!-- sidebar menu end -->
+
+    </div>
+    <!-- Sidebar content end -->
+
+      <!-- START FOOTER DARK-->
+      <footer class="navbar footer fixed-bottom footer-shadow content container-fluid">
+        <span style="font-size: 12px; color: #808080">Powered By Balosh</span>
+    </footer>
+    <!-- START FOOTER DARK-->
+
+  </nav>
+  <!-- Sidebar wrapper end -->

@@ -1,0 +1,217 @@
+				<!-- Page header start -->
+				<div class="page-header">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">Role & Permission</li>
+					</ol>
+
+					<ul class="app-actions">
+						<li>
+							<a href="javascript:void(0)" id="reportrange">
+								<!-- <span class="range-text"></span> -->
+								<i class="icon-chevron-down"></i>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">
+								<i class="icon-export"></i> Export
+							</a>
+						</li>
+					</ul>
+				</div>
+				<!-- Page header end -->
+
+				<!-- Main container start -->
+				<div class="main-container">
+
+					<!-- Row start -->
+					<div class="row gutters">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<div class="documents-section">
+
+								<!-- Row start -->
+								<div class="row no-gutters">
+									<div class="col-xl-3 col-lg-2 col-md-3 col-sm-3 col-4">
+
+										<div class="docs-type-container">
+											<div class="ml-4" style="text-wight: strong">All Roles</div>
+											<!-- <h4>Roles</h4> -->
+											<div class="docTypeContainerScroll">
+												<div class="docs-block">
+													<div class="doc-labels">
+														<a href="javascript:void(0)" *ngFor="let role of roles" (click)="getRole(role.id)">
+															<i class="icon-receipt" value='role.id'></i> {{role?.role_name}}
+														</a>
+													</div>
+												</div>
+											</div>
+
+										</div>
+
+									</div>
+									<div class="col-xl-9 col-lg-10 col-md-9 col-sm-9 col-8">
+
+										<div class="documents-container">
+											<div class="modal fade" id="addNewDocument" tabindex="-1" role="dialog" aria-labelledby="addNewDocumentLabel" aria-hidden="true">
+												<div class="modal-dialog" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="addNewDocumentLabel">Components Permission</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<form class="row gutters">
+																<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+																	<div class="form-group">
+																		<label for="docTitle">Document Title</label>
+																		<input type="text" class="form-control" id="docTitle" placeholder="Task Title">
+																	</div>
+																</div>
+																<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+																	<div class="form-group">
+																		<label for="dovType">Document Type</label>
+																		<input type="text" class="form-control" id="dovType" placeholder="Task Title">
+																	</div>
+																</div>
+																<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+																	<div class="form-group">
+																		<label for="addedDate">Created On</label>
+																		<div class="custom-date-input">
+																			<input type="text" name="" class="form-control datepicker" id="addedDate" placeholder="10/10/2019">
+																		</div>
+																	</div>
+																</div>
+																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+																	<div class="form-group mb-0">
+																		<label for="docDetails">Document Details</label>
+																		<textarea class="form-control" id="docDetails"></textarea>
+																	</div>
+																</div>
+															</form>
+														</div>
+														<div class="modal-footer custom">
+															<div class="left-side">
+																<button type="button" class="btn btn-link danger btn-block" data-dismiss="modal">Cancel</button>
+															</div>
+															<div class="divider"></div>
+															<div class="right-side">
+																<button type="button" class="btn btn-link success btn-block">Add</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="documents-header">
+												<h3>{{updateRole.name}} Components Permission
+                          <!-- <span class="date" id="todays-date"></span> -->
+                        </h3>
+												<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addNewDocument">Add Role</button>
+											</div>
+											<div class="documentsContainerScroll">
+												<div class="documents-body">
+												<!-- Row start -->
+                          <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                              <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+									Super Admin Dashboard
+                                  <!-- <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[0].status"></nz-switch> -->
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+								Estate Admin Dashboard
+                                  <!-- <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[1].status"></nz-switch> -->
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+								Resident Dashboard
+                                  <!-- <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[2].status"></nz-switch> -->
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+								Security Dashboard
+                                   <!-- <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[3].status"></nz-switch> -->
+                                 </li>
+
+                                 <li class="list-group-item d-flex justify-content-between align-items-center">
+								User Profile
+                                   <!-- <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[4].status"></nz-switch> -->
+                                 </li>
+
+                                 <li class="list-group-item d-flex justify-content-between align-items-center">
+								Visits
+                                   <!-- <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[5].status"></nz-switch> -->
+                                 </li>
+
+                                 <li class="list-group-item d-flex justify-content-between align-items-center">
+								Create Visitor Pass(Button)
+                                   <!-- <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[6].status"></nz-switch> -->
+                                 </li>
+								 
+								 <li class="list-group-item d-flex justify-content-between align-items-center">
+									Billing
+                                   <!-- <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[7].status"></nz-switch> -->
+                                 </li>
+                                 <li class="list-group-item d-flex justify-content-between align-items-center">
+									<!-- Estates
+                                   <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[8].status"></nz-switch> -->
+                                 </li>
+								 <li class="list-group-item d-flex justify-content-between align-items-center">
+									Complaints
+                                   <!-- <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[9].status"></nz-switch> -->
+                                 </li>
+								 <li class="list-group-item d-flex justify-content-between align-items-center">
+									Messages
+                                   <!-- <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[10].status"></nz-switch> -->
+                                 </li>
+								 <li class="list-group-item d-flex justify-content-between align-items-center">
+									Ice
+                                   <!-- <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[11].status"></nz-switch> -->
+                                 </li>
+								 <li class="list-group-item d-flex justify-content-between align-items-center">
+									Residents
+                                   <!-- <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[12].status"></nz-switch> -->
+                                 </li>
+								 <li class="list-group-item d-flex justify-content-between align-items-center">
+									Settings
+                                   <!-- <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[13].status"></nz-switch> -->
+                                 </li>
+								 <li class="list-group-item d-flex justify-content-between align-items-center">
+									User Management
+                                   <!-- <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[14].status"></nz-switch> -->
+                                 </li>
+								 <li class="list-group-item d-flex justify-content-between align-items-center">
+									Role Management
+                                   <!-- <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[15].status"></nz-switch> -->
+                                 </li>
+								 <li class="list-group-item d-flex justify-content-between align-items-center">
+									Street Management
+                                   <!-- <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[16].status"></nz-switch> -->
+                                 </li>
+								 <li class="list-group-item d-flex justify-content-between align-items-center">
+									Electricity
+                                   <!-- <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[17].status"></nz-switch> -->
+                                 </li>
+								 <li class="list-group-item d-flex justify-content-between align-items-center">
+									Water
+                                   <!-- <nz-switch (click)="switch($event)" [(ngModel)]="roleComponents[18].status"></nz-switch> -->
+                                 </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <!-- Row end -->
+
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+								<!-- Row end -->
+
+							</div>
+						</div>
+					</div>
+					<!-- Row end -->
+
+				</div>
+				<!-- Main container end -->

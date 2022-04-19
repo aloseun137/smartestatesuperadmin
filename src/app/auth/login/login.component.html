@@ -1,0 +1,78 @@
+
+<!-- Container start -->
+<div class="container">
+
+  <form [formGroup]="loginForm" (ngSubmit) = "login()">
+      <!-- <div *ngIf="notify" class="alert alert-success">
+        {{ notify }}
+      </div> -->
+      <div *ngIf="errors.length > 0" class="alert alert-danger">
+        <p *ngFor = "let error of errors">
+            {{ error }}
+        </p>
+      </div>
+    <div class="row justify-content-md-center">
+      <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
+        <div class="login-screen">
+          <div class="login-box">
+            <a href="#" class="login-logo" style="justify-content: center;" >
+              <img src="assets/img/logo.png" alt="SmartQ Admin Dashboard" />
+            </a>
+            <h5>Login to your account</h5>
+            <div class="form-group">
+              <input type="text" class="form-control" formControlName="email" placeholder="Email Address" />
+            </div>
+
+            <div *ngIf="isValidInput('email')"
+            class="alert alert-danger">
+            <div *ngIf="loginForm.controls['email'].errors?.required">
+              Email is required.
+            </div>
+            <div *ngIf="loginForm.controls['email'].errors?.pattern">
+              Must be a valid email format.
+            </div>
+          </div>
+
+            <div class="form-group input-group">
+
+              <input type="password" class="form-control" formControlName ="password" id="myInput" placeholder="Password" />
+              <div class="input-group-prepend" (click)="showPassword()" >
+                <a href="javascript:void(0)" class="input-group-text"><i class="icon-eye"></i></a>
+              </div>
+
+            </div>
+
+            <div *ngIf="isValidInput('password')"
+              class="alert alert-danger">
+              <div *ngIf="loginForm.controls['password'].errors?.required">
+                Password is required.
+              </div>
+            </div>
+
+            <div class="actions mb-4">
+              <div class="custom-control custom-checkbox" style="margin-right:80px;">
+                <input type="checkbox" class="custom-control-input" id="remember_pwd">
+                <label class="custom-control-label" for="remember_pwd">Remember me</label>
+              </div>
+              <button *ngIf="!loading" [disabled]="!loginForm.valid" type="submit" class="btn btn-info">Login</button>
+              <button *ngIf="loading" class="btn btn-info" type="button">
+                <span class="spinner-border spinner-border-sm"></span>
+                Loading...
+              </button>
+            </div>
+            <div class="forgot-pwd">
+              <a class="link" [routerLink]="['/auth/forgot-pwd']">Forgot password?</a>
+            </div>
+            <hr>
+            <div class="actions align-left">
+              <span class="additional-link">Create an account</span>
+              <a [routerLink]="['/auth/register']" class="btn btn-dark">SignUp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>
+<!-- Container end -->

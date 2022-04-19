@@ -1,1 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~ng-zorro-antd/ng-zorro-antd.min.css";
+
+@import "~ng-zorro-antd/style/index.min.css"; /* Import base styles */
+@import "~ng-zorro-antd/button/style/index.min.css"; /* Import one component's styles */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Datatable custom style */
+div .dt-buttons {
+  float: right;
+  margin: 0 0 0 5px;
+}
+
+.dataTables_length {
+  float: left;
+}
+.validation-message {
+  margin-left: 0px;
+  font-size: 0.8em;
+}
+
+.dtr-title {
+  font-weight: bold;
+  margin-right: 10px;
+  text-align: left;
+}
+.dtr-data {
+  font-weight: normal;
+  /*margin-right: 10px;*/
+  float: right;
+  text-align: right;
+}

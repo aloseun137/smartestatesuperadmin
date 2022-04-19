@@ -1,0 +1,16 @@
+
+  <!-- <ng-container *ngIf="roleId != 1 || roleId != 2 || roleId != 3 ">
+    <div id="particles-js"></div>
+    <div class="countdown-bg"></div>
+
+    <div class="error-screen">
+      <h1>404</h1>
+      <h5>We're sorry!<br/>You did not have access to view this page.</h5>
+      <a href="index.html" class="btn btn-primary">Go back to Dashboard</a>
+    </div>
+  </ng-container> -->
+
+  <app-estate-admin *ngIf="roleId == 2"></app-estate-admin>
+  <app-residents *ngIf="roleId == 3"></app-residents>
+  <app-super-admin *ngIf="roleId == 1"></app-super-admin>
+  <app-security *ngIf="roleId == 4"></app-security>

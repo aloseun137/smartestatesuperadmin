@@ -1,0 +1,451 @@
+<!-- Page header start -->
+<div class="page-header">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">Users</li>
+	</ol>
+
+	<ul class="app-actions" *ngIf="roleId != 1">
+		<!-- <li>
+			<a href="javascript:void(0)" id="reportrange">
+				<span class="range-text"></span>
+				<i class="icon-chevron-down"></i>
+			</a>
+		</li> -->
+		<li>
+			<a href="javascript:void(0)" data-toggle="modal" data-target="#addNewContact">
+				<i class="icon-circle-with-plus"></i> Add New User
+			</a>
+		</li>
+	</ul>
+</div>
+<!-- Page header end -->
+
+<!-- Main container start -->
+<div class="main-container">
+
+
+	<!-- Row start -->
+	<div class="row gutters">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+			<!-- Modal start -->
+			<div class="modal fade" id="addNewContact" tabindex="-1" role="dialog" aria-labelledby="addNewContactLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title text-light" id="addNewContactLabel">New User registration Form</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form class="row gutters">
+								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<div class="upload-photo-container">
+										<img src="assets/img/user.png" class="user-thumb" alt="Upload" />
+										<div class="form-group m-0">
+											<div class="input-group">
+												<div class="custom-file">
+													<input type="file" class="custom-file-input, dropify" name="imagefile" accept="image/x-png,image/gif,image/jpeg" (change)="onSelectImg($event)" #UploadFileInput id="uploadPhoto">
+													<label class="custom-file-label" for="uploadPhoto" aria-describedby="uploadPhotoAddon">../design/user.png</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+		  <div *ngIf="errors.length > 0" class="alert alert-danger">
+			<ul *ngFor = "let error of errors">
+				<li> {{ error }}</li>
+			</ul>
+		  </div>
+
+		  <div *ngIf="success.length > 0" class="alert alert-success">
+			<ul>
+				<li>{{ message }}</li>
+			</ul>
+		  </div>
+		</div>
+
+								<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+									<div class="form-group">
+										<label for="surname">Surname:</label>
+										<input type="text" class="form-control" name="surname" [(ngModel)]="registrationForm.surname"  [required]="true"  id="surname">
+									</div>
+									<div class="form-group">
+										<label for="userEmail">Email:</label>
+										<input type="email" class="form-control" name="email" [(ngModel)]="registrationForm.email"  [required]="true" id="userEmail">
+									</div>
+									<!-- <div class="form-group">
+										<label for="gender">Gender:</label>
+										<select class="form-control selectpicker" [(ngModel)] = "registrationForm.gender"
+																					name="gender"
+																					#gender = "ngModel"
+																					>
+											<option value="male">Male</option>
+											<option value="female">Female</option>
+										</select>
+									</div> -->
+								</div>
+								<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+									<div class="form-group">
+										<label for="othernames">Othernames:</label>
+										<input type="text" class="form-control" name="othernames" [(ngModel)]="registrationForm.othernames"  [required]="true"  id="othernames">
+									</div>
+									<div class="form-group">
+										<label for="phoneNumber">Phone Number:</label>
+										<input type="text" class="form-control" name="phone" [(ngModel)]="registrationForm.phone"  [required]="true" id="phoneNumber">
+									</div>
+								</div>
+
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+		  <div class="form-group">
+										<label for="estateCode">Role:</label>
+										<select class="form-control" [(ngModel)] = "registrationForm.role_id"
+																					name="role_id"
+																					#role_id = "ngModel"
+																					>
+											<option *ngFor="let role of roles" value="{{role.id}}">{{role.name}}</option>
+										</select>
+									</div>
+		</div>
+
+								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<div class="form-group" *ngIf="roleId == 1">
+										<label for="addResss">Estate:</label>
+										<select class="form-control" [(ngModel)] = "registrationForm.estateCode"
+																					name="estateCode"
+																					#estateCode = "ngModel"
+																					>
+											<option *ngFor="let estate of estates" value="{{estate.estateCode}}">{{estate.name}}</option>
+										</select>
+									</div>
+
+									<div class="form-group" *ngIf="roleId != 1">
+										<label for="othernames">Estate Code:</label>
+										<input type="text" class="form-control" disabled name ="estateCode" [(ngModel)] = "registrationForm.estateCode" [required]="true" id="othernames">
+									</div>
+								</div>
+
+								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<div class="form-group">
+										<div class="input-group">
+											<input type="password" class="form-control" placeholder="Password" [(ngModel)] = "registrationForm.password"
+																					name="password"
+																					#password = "ngModel"
+																					required />
+											<input type="password" class="form-control" placeholder="ConfIrm Password" [(ngModel)] = "registrationForm.password_confirmation"
+																									name="password_confirmation"
+																									#password_confimation = "ngModel"
+																									required />
+										</div>
+										<small id="passwordHelpInline" class="text-muted">
+											Password must be 8-20 characters long.
+										</small>
+									</div>
+								</div>
+
+							</form>
+						</div>
+						<div class="modal-footer custom">
+							<div>
+								<button type="button" class="btn btn-link danger btn-block" data-dismiss="modal">Cancel</button>
+							</div>
+							<div class="divider"></div>
+							<div>
+								<button type="button" *ngIf="!loading" id="submit" name="submit"  (click)="onRegister()" class="btn btn-link success btn-block">Save</button>
+		<button *ngIf="loading" class="btn btn-link success btn-block" type="button">
+		  <span class="spinner-border spinner-border-sm"></span>
+		  Loading...
+		</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Modal end -->
+
+		</div>
+
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+			<!-- Edit Contact Modal -->
+			<div class="modal fade" id="editContact" tabindex="-1" role="dialog" aria-labelledby="editContactLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title text-light" id="editContactLabel">Update User</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+	  <form class="row gutters">
+								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<div class="upload-photo-container">
+										<img src="assets/img/user.png" class="user-thumb" alt="Upload" />
+										<div class="form-group m-0">
+											<div class="input-group">
+												<div class="custom-file">
+													<input type="file" class="custom-file-input, dropify" name="imagefile" accept="image/x-png,image/gif,image/jpeg" (change)="onSelectImg($event)" #UploadFileInput id="uploadPhoto">
+													<label class="custom-file-label" for="uploadPhoto" aria-describedby="uploadPhotoAddon">../design/user.png</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+		  <div *ngIf="errors.length > 0" class="alert alert-danger">
+			<ul *ngFor = "let error of errors">
+				<li> {{ error }}</li>
+			</ul>
+		  </div>
+
+		  <div *ngIf="success.length > 0" class="alert alert-success">
+			<ul>
+				<li>{{ message }}</li>
+			</ul>
+		  </div>
+		</div>
+
+								<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+									<div class="form-group">
+										<label for="surname">Surname:</label>
+										<input type="text" class="form-control" name="surname" [(ngModel)]="registrationForm.surname"  [required]="true"  id="surname">
+									</div>
+									<div class="form-group">
+										<label for="userEmail">Email:</label>
+										<input type="email" class="form-control" name="email" [(ngModel)]="registrationForm.email"  [required]="true" id="userEmail">
+									</div>
+									<!-- <div class="form-group">
+										<label for="gender">Gender:</label>
+										<select class="form-control selectpicker" [(ngModel)] = "registrationForm.gender"
+																					name="gender"
+																					#gender = "ngModel"
+																					>
+											<option value="male">Male</option>
+											<option value="female">Female</option>
+										</select>
+									</div> -->
+								</div>
+								<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+									<div class="form-group">
+										<label for="othernames">Othernames:</label>
+										<input type="text" class="form-control" name="othernames" [(ngModel)]="registrationForm.othernames"  [required]="true"  id="othernames">
+									</div>
+									<div class="form-group">
+										<label for="phoneNumber">Phone Number:</label>
+										<input type="text" class="form-control" name="phone" [(ngModel)]="registrationForm.phone"  [required]="true" id="phoneNumber">
+									</div>
+								</div>
+
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+		  <div class="form-group">
+										<label for="estateCode">Role:</label>
+										<select class="form-control selectpicker" [(ngModel)] = "registrationForm.role_id"
+																					name="role_id"
+																					#role_id = "ngModel"
+																					>
+											<option *ngFor="let role of roles" value="{{role.id}}">{{role.name}}</option>
+										</select>
+									</div>
+		</div>
+
+								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<div class="form-group" *ngIf="roleId == 1">
+										<label for="addResss">Estate:</label>
+										<select class="form-control selectpicker" [(ngModel)] = "registrationForm.estateCode"
+																					name="estateCode"
+																					#estateCode = "ngModel"
+																					>
+											<option *ngFor="let estate of estates" value="{{estate.estateCode}}">{{estate.name}}</option>
+										</select>
+									</div>
+
+									<div class="form-group" *ngIf="roleId != 1">
+										<label for="othernames">Estate Code:</label>
+										<input type="text" class="form-control" disabled name ="estateCode" [(ngModel)] = "registrationForm.estateCode" [required]="true" id="othernames">
+									</div>
+								</div>
+
+								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<div class="form-group">
+										<div class="input-group">
+											<input type="password" class="form-control" placeholder="Password" [(ngModel)] = "registrationForm.password"
+																					name="password"
+																					#password = "ngModel"
+																					required />
+											<input type="password" class="form-control" placeholder="Confirm Password" [(ngModel)] = "registrationForm.password_confirmation"
+																									name="password_confirmation"
+																									#password_confimation = "ngModel"
+																									required />
+										</div>
+										<small id="passwordHelpInline" class="text-muted">
+											Password must be 8-20 characters long.
+										</small>
+									</div>
+								</div>
+
+							</form>
+						</div>
+						<div class="modal-footer custom">
+	  <div>
+								<button type="button" class="btn btn-link danger btn-block" data-dismiss="modal">Cancel</button>
+							</div>
+							<div class="divider"></div>
+							<div>
+								<button type="button" *ngIf="!loading" id="submit" name="submit"  (click)="updateProfile()" class="btn btn-link success btn-block">Update</button>
+		<button *ngIf="loading" class="btn btn-link success btn-block" type="button">
+		  <span class="spinner-border spinner-border-sm"></span>
+		  Loading...
+		</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Row end -->
+
+
+<!-- Row start -->
+	<div class="row gutters">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+			<div class="documents-section">
+
+				<!-- Row start -->
+				<div class="row no-gutters">
+					<div class="col-xl-3 col-lg-2 col-md-3 col-sm-3 col-4">
+
+						<div class="docs-type-container">
+							<div class="mt-5"></div>
+
+							<div class="docTypeContainerScroll">
+								<div class="docs-block">
+									<h5>All Estates</h5>
+									<div class="doc-labels">
+										<!-- <a href="javascript:void(0)" class="active" >
+											<i class="icon-receipt"></i>
+										</a> -->
+
+			<!-- <nz-skeleton *ngIf="!estates" [nzActive]="true"></nz-skeleton> -->
+
+										<a href="javascript:void(0)" *ngFor="let estate of estates" (click)="user_estate(estate.id, estate.name)">
+											<i class="icon-package"></i> {{estate.estate_name}}
+										</a>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="col-xl-9 col-lg-10 col-md-9 col-sm-9 col-8">
+
+						<div class="documents-container">
+							<div class="documents-header">
+								<h3>All Users: {{countAllUsers}}
+		  <span class="date">{{estateName}} </span>
+		</h3>
+								<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addNewContact">Add New User</button>
+							</div>
+							<div class="documentsContainerScroll">
+								<div class="documents-body">
+									<!-- Row start -->
+		  <div class="row gutters">
+
+			<div *ngIf= "!users" class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+			  <figure class="user-card">
+				<nz-skeleton-element
+				nzType="avatar"
+				[nzActive]="elementActive"
+				[nzSize]="avatarSize"
+				[nzShape]="avatarShape"></nz-skeleton-element>
+			  </figure>
+			</div>
+
+			<div *ngIf= "!users" class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+			  <figure class="user-card">
+				<nz-skeleton-element
+				nzType="avatar"
+				[nzActive]="elementActive"
+				[nzSize]="avatarSize"
+				[nzShape]="avatarShape"></nz-skeleton-element>
+			  </figure>
+			</div>
+
+			<div *ngIf= "!users" class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+			  <figure class="user-card">
+				<nz-skeleton-element
+				nzType="avatar"
+				[nzActive]="elementActive"
+				[nzSize]="avatarSize"
+				[nzShape]="avatarShape"></nz-skeleton-element>
+			  </figure>
+			</div>
+
+
+
+
+
+			<div *ngFor="let user of users" class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+			  <figure class="user-card">
+				<figcaption>
+				  <a href="javascript:void(0)" (click)="getUser(user.id)" class="edit-card" data-toggle="modal" data-target="#editContact">
+					<i class="icon-mode_edit"></i>
+				  </a>
+									<img src="assets/img/user.png" alt="SmartQ Admin" class="profile">
+				  <h5>{{user.surname}} {{user.othernames}}</h5>
+				  <ul class="list-group">
+					<li class="list-group-item">{{user.email}}</li>
+					<li class="list-group-item">{{user.phone}}</li>
+					<li class="list-group-item">{{user.estate}}</li>
+					<li class="list-group-item">
+					  <span *ngIf="user.role == 'superadministrator'" class="badge badge-pill badge-danger">{{user.role}}</span>
+					  <span *ngIf="user.role == 'administrator'" class="badge badge-pill badge-primary">{{user.role}}</span>
+					  <span *ngIf="user.role == 'resident'" class="badge badge-pill badge-success">{{user.role}}</span>
+					  <span *ngIf="user.role == 'newadmin' || user.role == 'security'" class="badge badge-pill badge-primary">Security</span>
+					</li>
+				  </ul>
+				</figcaption>
+			  </figure>
+			</div>
+
+		</div>
+		  <!-- Row end -->
+
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+			<div class="card">
+			  <div class="card-body">
+				<nav aria-label="Page navigation example">
+				  <ul class="pagination justify-content-center success">
+					<li class="page-item disabled"><a class="page-link" href="javascript:void(0)">
+					  <i class="icon-chevron-left1"></i>First</a></li>
+					<li class="page-item"><a class="page-link" href="javascript:void(0)">Prev</a></li>
+					<li class="page-item"><a class="page-link" href="javascript:void(0)">1</a></li>
+					<li class="page-item active"><a class="page-link" href="javascript:void(0)">2</a></li>
+					<li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+					<li class="page-item"><a class="page-link" href="javascript:void(0)">Next</a></li>
+					<li class="page-item"><a class="page-link" href="javascript:void(0)">Last <i class="icon-chevron-right1"></i></a></li>
+				  </ul>
+				</nav>
+			  </div>
+			</div>
+		</div>
+									<!-- Row end -->
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<!-- Row end -->
+
+			</div>
+		</div>
+	</div>
+
+</div>
+<!-- Main container end -->

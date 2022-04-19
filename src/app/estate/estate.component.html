@@ -1,0 +1,842 @@
+		<!-- Page header start -->
+				<div class="page-header">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">Estates</li>
+
+					</ol>
+
+					<ul class="app-actions">
+						<!-- <li>
+							<a href="javascript:void(0)" id="reportrange">
+								<span class="range-text"></span>
+								<i class="icon-chevron-down"></i>
+							</a>
+						</li> -->
+						<li>
+							<a href="javascript:void(0)" (click)="refreshUser()" data-toggle="modal" data-target="#addNewContact">
+								<i class="icon-circle-with-plus"></i> Add New Estate
+							</a>
+						</li>
+					</ul>
+				</div>
+				<!-- Page header end -->
+
+				<!-- Main container start -->
+				<div class="main-container">
+
+					<!-- Row start -->
+					<div class="row gutters">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+							<!-- Modal start -->
+							<div class="modal fade" id="addNewContact" tabindex="-1" role="dialog" aria-labelledby="addNewContactLabel" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title text-light" id="addNewContactLabel">New Estate Registration</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+                      <form class="row gutters" #submitForm=ngForm>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                          <div class="upload-photo-container">
+                            <img src="assets/img/user.png" class="user-thumb" alt="Upload" />
+                            <div class="form-group m-0">
+                              <div class="input-group">
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input, dropify" name="imagefile" accept="image/x-png,image/gif,image/jpeg" (change)="onSelectImg($event)" #UploadFileInput id="uploadPhoto">
+                                  <label class="custom-file-label" for="uploadPhoto" aria-describedby="uploadPhotoAddon">{{registrationForm.logo}}</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div *ngIf="errors.length > 0" class="alert alert-danger">
+                              <ul *ngFor = "let error of errors">
+                                  <li> {{ error }}</li>
+                              </ul>
+                            </div>
+
+                            <div *ngIf="success.length > 0" class="alert alert-success">
+                              <ul *ngFor = "let succes of success">
+                                  <li>{{ succes }}</li>
+                              </ul>
+                            </div>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="name">Estate Name:</label>
+                              <input type="text" class="form-control" name="name" [(ngModel)]="registrationForm.estate_name"  [required]="true" id="name">
+                            </div>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="phone">Estate Phone Contact:</label>
+                              <input type="email" class="form-control" id="phone" name="phone" [(ngModel)]="registrationForm.phone_number" [required]="true" >
+                            </div>
+                          </div>
+
+<!--
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="tenant">Tenant:</label>
+                              <input type="text" class="form-control" name="tenant" [(ngModel)]="registrationForm.tenant"  [required]="true" id="tenant">
+                            </div>
+
+                          </div> -->
+
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                              <label for="address">Estate Address:</label>
+                              <textarea class="form-control" id="address" name="address" [(ngModel)]="registrationForm.address"></textarea>
+                            </div>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="email">Estate Email:</label>
+                              <input type="email" class="form-control" id="email" name="email" [(ngModel)]="registrationForm.email" [required]="true" >
+                            </div>
+                          </div>
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="plan">Plan:</label>
+                              <input type="text" class="form-control" id="plan" name="plan" [(ngModel)]="registrationForm.plan" [required]="true" >
+                            </div>
+                          </div>
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="contactPerson">Contact Person Lastname:</label>
+                              <input type="text" class="form-control" name="contactPerson" [(ngModel)]="registrationForm.contact_person_last_name"
+                                [required]="true" id="contact_person_last_name">
+                            </div>
+                          </div>
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="contactPerson">Contact Person Firstname:</label>
+                              <input type="text" class="form-control" name="contactPerson" [(ngModel)]="registrationForm.contact_person_first_name"  [required]="true" id="contact_person_first_name">
+                            </div>
+                          </div>
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="email">Website name:</label>
+                              <input type="text" class="form-control" id="text" name="website_name" [(ngModel)]="registrationForm.website_name"
+                                [required]="true">
+                            </div>
+                          </div>
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="contactphone">Contact Phone:</label>
+                              <input type="text" class="form-control" id="contactphone" name="contactphone" [(ngModel)]="registrationForm.contactphone" [required]="true" >
+                            </div>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="contactemail">Contact email:</label>
+                              <input type="email" class="form-control" id="contactemail" name="contactemail" [(ngModel)]="registrationForm.contactemail" [required]="true" >
+                            </div>
+                          </div>
+
+                          <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="alternateEmail">Alternate Email:</label>
+                              <input type="email" class="form-control" name="alternateEmail" [(ngModel)]="registrationForm.alternateEmail"  [required]="true" id="alternateEmail">
+                            </div>
+
+                          </div> -->
+                          <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="phone">Alternate Phone Contact:</label>
+                              <input type="phone" class="form-control" id="alternatePhone" name="alternatePhone" [(ngModel)]="registrationForm.alternatePhone" [required]="true" >
+                            </div>
+                          </div> -->
+
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="state_id">State:</label>
+                              <select class="form-control" data-live-search="true" name="state_id" [(ngModel)]="registrationForm.state" (change)="selectState()" [required]="true" id="state_id">
+                                <option data-tokens="select" value="0">Select State</option>
+                                <option *ngFor="let state of states" value="{{state}}">{{state}}</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="city_id">LGA:</label>
+                              <select class="form-control" data-live-search="true" id="city_id" name="city_id" [(ngModel)]="registrationForm.lga" [required]="true">
+                                <option data-tokens="select" value="0">Select City</option>
+                                <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="bank_id">Bank:</label>
+                              <select class="form-control" data-live-search="true"bank name="bank_id" [(ngModel)]="registrationForm.bank"  [required]="true" id="bank_id">
+                                <option data-tokens="select" value="0">Select Bank</option>
+                                <option *ngFor="let bank of banks" value="{{bank.name}}">{{bank.name}}</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="accountNumber">Account Number:</label>
+                              <input type="text" class="form-control" id="accountNumber" name="accountNumber" [(ngModel)]="registrationForm.account_number" [required]="true" >
+                            </div>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="accountName">Account Name:</label>
+                              <input type="text" class="form-control" name="accountName" [(ngModel)]="registrationForm.account_name"  [required]="true" id="accountName">
+                            </div>
+                          </div>
+                          <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="accountName">Mail Slug:</label>
+                              <input type="text" class="form-control" name="accountName" [(ngModel)]="registrationForm.mail_slug"  [required]="true" id="accountName">
+                            </div>
+                          </div> -->
+
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer custom">
+                      <div>
+												<button type="button" class="btn btn-link danger btn-block" data-dismiss="modal">Cancel</button>
+											</div>
+											<div class="divider"></div>
+											<div>
+												<button type="button" *ngIf="!loading" id="submit" name="submit"  (click)="onRegister()" class="btn btn-link success btn-block">Save</button>
+                        <button *ngIf="loading" class="btn btn-link success btn-block" type="button">
+                          <span class="spinner-border spinner-border-sm"></span>
+                          Loading...
+                        </button>
+											</div>
+                    </div>
+									</div>
+								</div>
+							</div>
+							<!-- Modal end -->
+
+						</div>
+					</div>
+					<!-- Row end -->
+
+					<!-- Row start -->
+					<div class="row gutters">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<!-- Edit Contact Modal -->
+							<div class="modal fade" id="editContact" tabindex="-1" role="dialog" aria-labelledby="editContactLabel" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title text-light" id="editContactLabel">Edit Estate</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+                      <form class="row gutters" #submitForm=ngForm>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                          <div class="upload-photo-container">
+                            <img src="{{imgname}}" class="user-thumb" alt="Upload" />
+                            <div class="form-group m-0">
+                              <div class="input-group">
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input, dropify" name="imagefile" accept="image/x-png,image/gif,image/jpeg" (change)="onSelectImg($event)" #UploadFileInput id="uploadPhoto">
+                                  <label class="custom-file-label" for="uploadPhoto" aria-describedby="uploadPhotoAddon"></label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div *ngIf="errors.length > 0" class="alert alert-danger">
+                              <ul *ngFor = "let error of errors">
+                                  <li> {{ error }}</li>
+                              </ul>
+                            </div>
+
+                            <div *ngIf="success.length > 0" class="alert alert-success">
+                              <ul *ngFor = "let succes of success">
+                                  <li>{{ succes }}</li>
+                              </ul>
+                            </div>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="name">Estate Name:</label>
+                              <input type="text" class="form-control" name="name" [(ngModel)]="registrationForm.estate_name"  [required]="true" id="name">
+                            </div>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="phone">Estate Phone Contact:</label>
+                              <input type="email" class="form-control" id="phone" name="phone" [(ngModel)]="registrationForm.phone_number" [required]="true" >
+                            </div>
+                          </div>
+
+<!--
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="tenant">Tenant:</label>
+                              <input type="text" class="form-control" name="tenant" [(ngModel)]="registrationForm.tenant"  [required]="true" id="tenant">
+                            </div>
+
+                          </div> -->
+
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                              <label for="address">Estate Address:</label>
+                              <textarea class="form-control" id="address" name="address" [(ngModel)]="registrationForm.address"></textarea>
+                            </div>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="email">Estate Email:</label>
+                              <input type="email" class="form-control" id="email" name="email" [(ngModel)]="registrationForm.email" [required]="true" >
+                            </div>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="contactPerson">Contact Person Firstname:</label>
+                              <input type="text" class="form-control" name="contactPerson" [(ngModel)]="registrationForm.contact_person_first_name"  [required]="true" id="contactPerson">
+                            </div>
+                          </div>
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="contactPerson">Contact Person Lastname:</label>
+                              <input type="text" class="form-control" name="contactPerson" [(ngModel)]="registrationForm.contact_person_last_name"  [required]="true" id="contactPerson">
+                            </div>
+                          </div>
+<!-- 
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="contactphone">Contact Phone:</label>
+                              <input type="text" class="form-control" id="contactphone" name="contactphone" [(ngModel)]="registrationForm.contactphone" [required]="true" >
+                            </div>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="contactemail">Contact email:</label>
+                              <input type="email" class="form-control" id="contactemail" name="contactemail" [(ngModel)]="registrationForm.contactemail" [required]="true" >
+                            </div>
+                          </div> -->
+
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="state_id">State:</label>
+                              <select class="form-control" data-live-search="true" name="state_id" [(ngModel)]="registrationForm.state" (change)="selectState()" [required]="true" id="state_id">
+                                <option data-tokens="select" value="0">Select State</option>
+                                <option *ngFor="let state of states" value="{{state.state}}">{{state.name}}</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="city_id">LGA:</label>
+                              <select class="form-control" data-live-search="true" id="city_id" name="city_id" [(ngModel)]="registrationForm.lga" [required]="true">
+                                <option data-tokens="select" value="0">Select LGA</option>
+                                <option *ngFor="let city of cities" value="{{city.name}}">{{city.name}}</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="bank_id">Bank:</label>
+                              <select class="form-control" data-live-search="true"bank name="bank_id" [(ngModel)]="registrationForm.bank"  [required]="true" id="bank_id">
+                                <option data-tokens="select" value="0">Select Bank</option>
+                                <option *ngFor="let bank of banks" value="{{bank.id}}">{{bank.name}}</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="accountNumber">Account Number:</label>
+                              <input type="text" class="form-control" id="accountNumber" name="accountNumber" [(ngModel)]="registrationForm.account_number" [required]="true" >
+                            </div>
+                          </div>
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="accountName">Account Name:</label>
+                              <input type="text" class="form-control" id="account-name" name="accountName" [(ngModel)]="registrationForm.account_name" [required]="true" >
+                            </div>
+                          </div>
+                          <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                              <label for="accountNumber">Mail Slug:</label>
+                              <input type="text" class="form-control" id="mail-slug" name="mailSlug" [(ngModel)]="registrationForm.mail_slug" [required]="true" >
+                            </div>
+                          </div> -->
+
+                          <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                              <label for="accountName">Account Name:</label>
+                              <input type="text" class="form-control" name="accountName" [(ngModel)]="registrationForm.accountName"  [required]="true" id="accountName">
+                            </div>
+                          </div> -->
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer custom">
+                      <div class="">
+                        <button type="button" class="btn btn-link danger btn-block" data-dismiss="modal">Cancel</button>
+                      </div>
+                      <div class="divider"></div>
+                      <div class="">
+                        <button type="button" *ngIf="!loading" (click)="updateEstate()" class="btn btn-link success btn-block">Update</button>
+                        <button *ngIf="loading" class="btn btn-link success btn-block" type="button">
+                          <span class="spinner-border spinner-border-sm"></span>
+                          Loading...
+                        </button>
+                      </div>
+                    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+        <div *ngIf= "!estates" class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+            <figure class="user-card">
+                <nz-skeleton-element
+                nzType="avatar"
+                [nzActive]="elementActive"
+                [nzSize]="avatarSize"
+                [nzShape]="avatarShape"></nz-skeleton-element>
+            </figure>
+        </div>
+
+        <div *ngIf= "!estates" class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+          <figure class="user-card">
+              <nz-skeleton-element
+              nzType="avatar"
+              [nzActive]="elementActive"
+              [nzSize]="avatarSize"
+              [nzShape]="avatarShape"></nz-skeleton-element>
+          </figure>
+      </div>
+
+      <div *ngIf= "!estates" class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+        <figure class="user-card">
+            <nz-skeleton-element
+            nzType="avatar"
+            [nzActive]="elementActive"
+            [nzSize]="avatarSize"
+            [nzShape]="avatarShape"></nz-skeleton-element>
+        </figure>
+    </div>
+
+    <div *ngIf= "!estates" class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+      <figure class="user-card">
+          <nz-skeleton-element
+          nzType="avatar"
+          [nzActive]="elementActive"
+          [nzSize]="avatarSize"
+          [nzShape]="avatarShape"></nz-skeleton-element>
+      </figure>
+  </div>
+            <div *ngFor="let estate of estates" class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+							<figure class="user-card">
+								<figcaption>
+									<a href="javascript:void(0)" (click)="getEstate(estate.id)" class="edit-card" data-toggle="modal" data-target="#editContact">
+										<i class="icon-mode_edit"></i>
+									</a>
+									<a href="javascript:void(0)" (click)="open(estate.id, estate.name)">
+                    <img src="{{estate.imageName}}" onerror="this.src='assets/img/user.png'" alt="SmartQ Admin" class="profile">
+                  </a>
+
+                  <a href="javascript:void(0)" (click)="open(estate.id, estate.name)">
+									  <h5>{{estate.name}}</h5>
+                  </a>
+									<ul class="list-group">
+                    <li class="list-group-item">{{estate.estateCode}}</li>
+										<li class="list-group-item">{{estate.email}}</li>
+										<li class="list-group-item">{{estate.phone}}</li>
+                    <li class="list-group-item">
+                      <a href="javascript:void(0)" (click)="open(estate.id, estate.name)" class="list-group-item list-group-item-warning">Select</a>
+                    </li>
+									</ul>
+								</figcaption>
+							</figure>
+					</div>
+					<!-- Row end -->
+
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<div class="card">
+								<div class="card-body">
+									<nav aria-label="Page navigation example">
+										<ul class="pagination justify-content-center success">
+										  <nz-pagination [nzPageIndex]="estateIndex" [nzTotal]="countAllUsers" (click)="pagination($event)"  [nzItemRender]="renderItemTemplate"></nz-pagination>
+                      <ng-template #renderItemTemplate let-type let-page="page">
+                        <ng-container [ngSwitch]="type" (click)="pagination($event)" >
+                          <a *ngSwitchCase="'page'">{{ page }}</a>
+                          <a *ngSwitchCase="'prev'">Previous</a>
+                          <a *ngSwitchCase="'next'">Next</a>
+                          <a *ngSwitchCase="'prev_5'"><<</a>
+                          <a *ngSwitchCase="'next_5'">>></a>
+                        </ng-container>
+                      </ng-template>
+										</ul>
+									</nav>
+								</div>
+							</div>
+						</div>
+
+
+          <nz-drawer
+            [nzClosable]="false"
+            [nzOffsetX]="childrenVisible ? 180 : 0"
+            [nzWidth]="420"
+            [nzVisible]="visible"
+            nzTitle="About {{estateName}}"
+            (nzOnClose)="close()"
+            >
+
+            <form *nzDrawerContent nz-form>
+
+              <!-- Page header start -->
+
+              <div class="card">
+								<div class="card-body">
+									<ul class="nav nav-pills">
+										<li>
+											<a class="nav-link {{tabStatus}}" href="javascript:void(0)" (click)="switch(false)">Informations</a>
+										</li>
+										<li>
+											<a class="nav-link {{tabStatus2}}" href="javascript:void(0)" (click)="switch(true)">Residents</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+              <!-- Page header end -->
+
+              <div class="card">
+                <div class="card-body" *ngIf="!switchTabs">
+                  <div class="t-header">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-info {{'active'}}">
+                        <input type="radio" name="options" id="option1" (click)="getEstate(this.estateId)" class="edit-card" data-toggle="modal" data-target="#editContact" checked> Edit
+                      </label>
+                      <label class="btn btn-success">
+                        <input type="radio" (click)="showStatusModal()" data-toggle="modal" data-target="#basicModal"> Change Status
+                      </label>
+                      <label class="btn btn-danger">
+                        <input type="radio" data-toggle="modal" data-target="#deleatStatusBasicModal"> Delete
+                      </label>
+                    </div>
+                  </div>
+
+                  <br>
+                  <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Title</th>
+                          <th>Value</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        <tr>
+                          <td>Estate Logo</td>
+                            <td>{{this.registrationForm.logo}}</td>
+                        </tr>
+
+                        <tr>
+                          <td>Estate Name</td>
+                          <td>{{this.registrationForm.estate_name}}</td>
+                        </tr>
+                        <tr>
+                          <td>Estate Code</td>
+                          <td>{{this.estateCode}}</td>
+                        </tr>
+                        <tr>
+                          <td>City</td>
+                          <td>{{this.registrationForm.lga}}</td>
+                        </tr>
+                        <tr>
+                          <td>State</td>
+                          <td>{{this.stateName}}</td>
+                        </tr>
+                        <tr>
+                          <td>Email</td>
+                          <td>{{this.registrationForm.email}}</td>
+                        </tr>
+                        <!-- <tr>
+                          <td>Statue</td>
+                          <td><span class="badge badge-success">{{this.registrationForm?.status}}</span></td>
+                        </tr> -->
+                        <tr>
+                          <td>Address</td>
+                          <td>{{this.registrationForm.address}}</td>
+                        </tr>
+                        <tr>
+                          <td>Estate Contact</td>
+                            <td>{{this.registrationForm.phone_number}}</td>
+                        </tr>
+                        <tr>
+                          <td>Account Number</td>
+                            <td>{{this.registrationForm.account_number}}</td>
+                        </tr>
+                        <!-- <tr>
+                          <td>Contact Person</td>
+                             <td>{{this.registrationForm.alternativeContact}}</td>
+                        </tr> -->
+                        <tr>
+                          <td>Contact Person Phone Number</td>
+                            <td>{{this.registrationForm.contactphone}}</td>
+                        </tr>
+                        <tr>
+                          <td>Contact Person Email</td>
+                            <td>{{this.registrationForm.contactemail}}</td>
+                        </tr>
+
+                        <tr>
+                          <td>Bank</td>
+                          <td>{{this.bankName}}</td>
+                        </tr>
+
+                        <tr>
+                          <td>Account Name</td>
+                          <td>{{this.registrationForm.account_name}}</td>
+                        </tr>
+
+                        <tr>
+                          <td>Account Number</td>
+                          <td>{{this.registrationForm.account_number}}</td>
+                        </tr>
+
+                        <!-- <tr>
+                          <td>Alternative Email</td>
+                          <td>{{this.registrationForm.alternateEmail}}</td>
+                        </tr> -->
+
+                        <!-- <tr>
+                          <td>Alternative Phone Number</td>
+                          <td>{{this.registrationForm.alternatePhone}}</td>
+                        </tr> -->
+
+                        <!-- <tr>
+                          <td>Account Verified</td>
+                          <td><span class="badge badge-success">{{this.registrationForm.accountVerified}}</span></td>
+                        </tr> -->
+
+                        <!-- <tr>
+                          <td>User</td>
+                          <td>{{this.registrationForm.user}}</td>
+                        </tr> -->
+
+                        <!-- <tr>
+                          <td>Created By</td>
+                          <td>{{this.registrationForm.created_by}}</td>
+                        </tr> -->
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="card-body" *ngIf="switchTabs">
+                  <div class="t-header">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-info {{'active'}}">
+                        <input type="radio" name="options" id="option1" checked> All
+                      </label>
+                      <label class="btn btn-success">
+                        <input type="radio" name="options" id="option2"> Active
+                      </label>
+                      <label class="btn btn-danger">
+                        <input type="radio" name="options" id="option3"> Inactive
+                      </label>
+                    </div>
+
+                    <div class="custom-search float-right">
+                      <input type="text" class="search-query" placeholder="Search here ...">
+                      <i class="icon-search1"></i>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="table-container">
+                    <div class="table-responsive">
+                      <table class="table custom-table m-0">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Resident Name</th>
+                            <th>Address</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Estate</th>
+                            <th>Moved In</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                          <tr *ngFor="let resident of estateResidents; let r = index">
+                            <td>
+                              {{r+1}}
+                            </td>
+                            <td>
+                              <!-- <img src="assets/flags/1x1/au.svg" class="flag-img" alt="Australia" /> -->
+                              {{resident.surname}} {{resident.othernames}}
+                            </td>
+                            <td>No {{resident.houseNo}}, {{resident.street}}</td>
+                            <td>{{resident.phone}}</td>
+                            <td>{{resident.email}}</td>
+                            <td>{{resident.estate}}</td>
+                            <td>{{resident.dateMovedIn}}</td>
+                            <td><div class="td-actions">
+                              <a href="javascript:void(0)" class="icon red" data-toggle="tooltip" data-placement="top" title="Add Row">
+                                <i class="icon-circle-with-plus"></i>
+                              </a>
+                              <a href="javascript:void(0)" class="icon green" data-toggle="tooltip" data-placement="top" title="Save Row">
+                                <i class="icon-save"></i>
+                              </a>
+                              <a href="javascript:void(0)" class="icon blue" data-toggle="tooltip" data-placement="top" title="Delete Row">
+                                <i class="icon-cancel"></i>
+                              </a>
+                            </div></td>
+                          </tr>
+
+                          <tr *ngIf="estateResidents.length == 0">
+                            <td colspan="8">
+                              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <div class="alert-notify info">
+                                  <div class="alert-notify-body">
+                                    <span class="type">Empty</span>
+                                    <div class="alert-notify-title">No Data.<img src="assets/img/notification-info.svg" alt=""></div>
+                                    <div class="alert-notify-text">Add Transaction add data to table</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+
+                        </tbody>
+                        <!-- <tfoot>
+                          <tr>
+                            <td colspan="6" class="text-center">Data retrieved from <a href="javascript:void(0)" class="link">SmartQ</a> and <a href="javascript:void(0)" class="link">unify</a>.</td>
+                          </tr>
+                        </tfoot> -->
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div nz-row>
+                      <nz-tag (click)="openChildren()">+</nz-tag>
+              </div> -->
+            </form>
+            <nz-drawer [nzClosable]="false" [nzVisible]="childrenVisible" nzTitle="Food" (nzOnClose)="closeChildren()">
+              <nz-list *nzDrawerContent [nzDataSource]="vegetables" [nzRenderItem]="item">
+                <ng-template #item let-item>
+                  <nz-list-item [nzContent]="item"></nz-list-item>
+                </ng-template>
+              </nz-list>
+            </nz-drawer>
+          </nz-drawer>
+
+
+
+									<!-- Modal -->
+									<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title text-light" id="basicModalLabel">Change Status</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+                          <h5>Please, select the one of the status option for your request.</h5>
+
+                          <div *ngIf="errors.length > 0" class="alert alert-danger">
+                            <ul *ngFor = "let error of errors">
+                                <li>{{ error }}</li>
+                            </ul>
+                            </div>
+
+                          <div class="form-group">
+                            <p><code>Status</code></p>
+                            <select class="form-control selectpicker" [(ngModel)] = "statusFormData.status"
+                                                                                           name="status"
+                                                                                           #status = "ngModel"
+                                                                                           >
+                                <option value="0">Select Street</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                          </div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" *ngIf="!loading" id="submit" name="submit"  (click)="changeStatus()" class="btn btn-primary">Save</button>
+                          <button *ngIf="loading" class="btn btn-primary" type="button">
+                            <span class="spinner-border spinner-border-sm"></span>
+                            Loading...
+                          </button>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+                  <div class="modal fade" id="deleatStatusBasicModal" tabindex="-1" role="dialog" aria-labelledby="basicModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title text-light" id="basicModalLabel">Delete Estate</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+                          <h5>You are about to delete {{estateName}} Estate.</h5>
+                          <p>Please, click on <span class="text-danger">"Yes, Proceed"</span> button to delete or <span class="text-default">"Close"</span> button to cancle</p>
+
+                          <div *ngIf="errors.length > 0" class="alert alert-danger">
+                            <ul *ngFor = "let error of errors">
+                                <li>{{ error }}</li>
+                            </ul>
+                          </div>
+
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" *ngIf="!loading" id="submit" name="submit"  (click)="changeStatus()" class="btn btn-primary">Yes, Proceed</button>
+                          <button *ngIf="loading" class="btn btn-primary" type="button">
+                            <span class="spinner-border spinner-border-sm"></span>
+                            Loading...
+                          </button>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+				</div>
+				<!-- Main container end -->
