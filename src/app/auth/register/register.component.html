@@ -125,16 +125,6 @@
                                                                                  />
 								</div>
 
-                <div class="form-group">
-                  <p><code>Road/Close<span class="text text-danger">*</span> </code></p>
-                  <select class="form-control selectpicker" [(ngModel)] = "formData.street_id"
-                                                                                 name="street_id"
-                                                                                 #street_id = "ngModel"
-                                                                                 >
-                      <option value="0">Select Street</option>
-                    <option *ngFor="let street of streets" value="{{street.id}}">{{street.name}}</option>
-                  </select>
-								</div>
 
                 <!-- <div class="form-group">
                   <p><code>Date Moved In<span class="text text-danger">*</span> </code></p>

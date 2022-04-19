@@ -123,7 +123,6 @@ export class RoleComponent implements OnInit {
 
   getRole(id: any){
     this.refresh();
-    console.log(id);
       this.auth.getRole(id).subscribe(
       data => {
       const getRole = data;
